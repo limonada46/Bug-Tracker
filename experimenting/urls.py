@@ -42,7 +42,7 @@ urlpatterns = [
     path("my-tickets/", views.ticketsListView, name="tickets_list"),
     path("my-tickets/<int:ticket_id>/", views.ticketsDetailView, name="tickets_detail"),
     path("my-tickets/create/", views.ticketsCreateView, name="tickets_create"),
-    path("my-tickets/<int:pk>/edit", views.TicketsUpdateView.as_view(), name="tickets_update"),
+    path("my-tickets/<int:ticket_id>/edit", views.ticketUpdateView, name="tickets_update"),
     path("my-tickets/<int:pk>/delete", views.TicketsDeleteView.as_view(), name="tickets_delete"),
     path("test/", views.createFileView, name="test"),
 ]

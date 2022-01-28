@@ -93,9 +93,13 @@ class UserRole(models.Model):
         return self.role.name
 
 class TicketHistory(models.Model):
-    old_developer = models.OneToOneField(User, on_delete=models.RESTRICT, related_name="old_dev")
-    new_developer = models.OneToOneField(User, on_delete=models.RESTRICT)
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    old_developer = models.ForeignKey(User, on_delete=models.RESTRICT, related_name="old_dev")
+    new_developer = models.ForeignKey(User, on_delete=models.RESTRICT)
     created = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.ticket.title
 
     
 

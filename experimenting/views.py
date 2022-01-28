@@ -208,21 +208,26 @@ def ticketsDetailView(request, ticket_id):
         
     return render(request, "admin/tickets/tickets_detail.html", context)
 
-class TicketsUpdateView(UpdateView):
-    model = Ticket
-    fields = ["submitter", "modified_by", "assigned_developer", "project", "title", "description", "priority_level", "status", "ticket_type"]
-    template_name_suffix = "/tickets_update_form"
-    
-    #In this get method, pre set the modified_by as self.request.user in the form class
+def ticketUpdateView(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+    form = CreateTicketForm(instance=ticket, initial={"modified_by": request.user})
 
+    old_developer = ticket.assigned_developer
+    if request.method == "POST":
+        form = CreateTicketForm(request.POST or None, instance = ticket)
+        if form.is_valid():
+            form.save()
+            #if the assigned developer was changed, then create a history ticket about it
+            new_developer = form.cleaned_data["assigned_developer"]
+            if old_developer != new_developer:
+                ticket_history = TicketHistory.objects.create(ticket=ticket, old_developer=old_developer, new_developer=new_developer)
+        
+        
 
-    def get_form_class(self, *args, **kwargs):
-        form = super(TicketsUpdateView, self).get_form_class(*args, **kwargs)
-        self.object.modified_by = self.request.user
-        return form
-
-    def post(self, *args, **kwargs):
-        return super(TicketsUpdateView, self).post(*args, **kwargs)
+    context = {
+        "form": form,
+    }
+    return render(request, "experimenting/ticket/tickets_update_form.html", context)
 
 class TicketsDeleteView(DeleteView):
     model = Ticket
@@ -269,6 +274,3 @@ def createFileView(request):
     return render(request, "admin/tickets/test.html", {"file_form":form})
 
 #after completing all the views, please try to use the generic views of django; like you did with the forms and views for auth
-
-def createfile(request):
-    pass
