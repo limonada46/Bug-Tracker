@@ -1,0 +1,32 @@
+				
+				{% if page_obj %}
+				{% for project in page_obj %}
+					<div class="table100-body js-pscroll">
+						<table>
+							<tbody>
+								<tr class="row100 body">
+									<td class="cell100 column1">{{ project.name }}</td>
+									<td class="cell100 column2">{{ project.description }}</td>
+									<td class="cell300 column3">
+										<a href="{% url 'projects_detail' project.id %}">Details</a> / 
+										<a href="{% url 'projects_detail' project.id %}">Manage Personnel</a>
+										<a href="{% url 'projects_update' project.id %}" class="btn mb-2 mb-md-0 btn-primary btn-round">
+											Edit
+										</a>
+									</td>
+								</tr>		
+							</tbody>
+						</table>
+					</div>
+					
+					
+				{% endfor %}
+				{% else %}
+					<h3>There are no projects. Please create a new one.</h3>
+				{% endif %}
+				
+
+				
+
+
+				

@@ -1,0 +1,104 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>My Projects</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'CRUD_tables/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'CRUD_tables/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'CRUD_tables/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'CRUD_tables/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'CRUD_tables/vendor/perfect-scrollbar/perfect-scrollbar.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'CRUD_tables/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'CRUD_tables/css/main.css' %}">
+<!--===============================================================================================-->
+</head>
+	<style>
+		.column1 {
+	width: 35%;
+	padding-left: 40px;
+		}
+
+		.column2 {
+		width: 45%;
+		}
+
+		.column3 {
+		width: 20%;
+			}
+	</style>
+<body>
+	<div class="limiter">
+		<div class="container-button">
+			<a href="{% url 'projects_create' %}" class="btn mb-2 mb-md-0 btn-primary btn-round">
+				Create New Project
+			</a>
+		</div>
+		
+		
+		<div class="container-table100">
+			
+			<div class="wrap-table100">
+				<div class="table100 ver1 m-b-110">
+					
+					<div class="table100-head">
+					
+						<table>
+							<thead>
+								<tr class="row100 head">
+									<th class="cell100 column1">Project Name</th>
+									<th class="cell100 column2">Description</th>
+									<th class="cell100 column3">
+										<form class="projects-list-form" id="projects-list-form" name="projects-list-form" method="POST">
+											<input type="text" class="search-input" name="search" id="search_input" onkeyup="searchProject()" placeholder="Search">
+										</form>
+									</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<div id="replaceable-table">
+						{% include 'admin/projects_list_logic.html' %}
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+
+<!--===============================================================================================-->	
+	<script src="{% static 'CRUD_tables/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'CRUD_tables/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'CRUD_tables/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'CRUD_tables/vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'CRUD_tables/vendor/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			var ps = new PerfectScrollbar(this);
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+			
+		
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'CRUD_Tables/js/projects/main.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+				
+				{% if page_obj %}
+				{% for ticket in page_obj %}
+					<div class="table100-body js-pscroll">
+						<table>
+							<tbody>
+								<tr class="row100 body">
+									<td class="cell100 column1">{{ ticket.title }}</td>
+									<td class="cell100 column2">{{ ticket.project.name }}</td>
+                                    <td class="cell300 column3">{{ ticket.assigned_developer.username}}</td>
+                                    <td class="cell300 column4">{{ ticket.get_priority_level_display }}</td>
+                                    <td class="cell300 column5">{{ ticket.get_status_display }}</td>
+                                    <td class="cell300 column6">{{ ticket.get_ticket_type_display }}</td>
+                                    <td class="cell300 column7">{{ ticket.created }}</td>
+									<td class="cell300 column8">
+										<a href="{% url 'tickets_detail' ticket.id %}">Details</a> / 
+										<a href="{% url 'tickets_update' ticket.id %}">Edit</a>
+									</td>
+                                    
+
+								</tr>		
+							</tbody>
+						</table>
+					</div>
+					
+					
+				{% endfor %}
+				{% else %}
+					<h3>There are no projects. Please create a new one.</h3>
+				{% endif %}

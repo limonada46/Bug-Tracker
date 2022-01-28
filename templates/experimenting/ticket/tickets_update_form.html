@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form.submitter.as_hidden}}
+        {{form.modified_by.as_hidden}}
+        {{form.assigned_developer.label_tag}}
+        {{form.assigned_developer}}
+        {{form.project.label_tag}}
+        {{form.project}}
+        {{form.title.label_tag}}
+        {{form.title}}
+        {{form.description.label_tag}}
+        {{form.description}}
+        {{form.priority_level.label_tag}}
+        {{form.priority_level}}
+        {{form.status.label_tag}}
+        {{form.status}}
+        {{form.ticket_type.label_tag}}
+        {{form.ticket_type}}
+        <input type="submit" value="Hola">
+    </form>
+    
+</body>
+</html>

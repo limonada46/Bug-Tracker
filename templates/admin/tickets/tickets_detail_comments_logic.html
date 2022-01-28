@@ -1,0 +1,20 @@
+				
+				{% if comment_list %}
+				{% for comment in comment_list %}
+					<div class="table100-body js-pscroll">
+						<table>
+							<tbody>
+								<tr class="row100 body">
+									<td class="cell100 column1">{{ comment.author.username }}</td>
+									<td class="cell100 column2">{{ comment.description }}</td>
+                                    <td class="cell300 column3">{{ comment.created }}</td>
+								</tr>		
+							</tbody>
+						</table>
+					</div>
+					
+					
+				{% endfor %}
+				{% else %}
+					<h3>There are no comments. Please create a new one.</h3>
+				{% endif %}

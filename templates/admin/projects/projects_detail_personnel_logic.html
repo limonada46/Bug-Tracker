@@ -1,0 +1,24 @@
+				
+				{% if assigned_personnel %}
+				{% for user in assigned_personnel %}
+					<div class="table100-body js-pscroll">
+						<table>
+							<tbody>
+								<tr class="row100 body">
+									<td class="cell100 column1">{{ user.username }}</td>
+									<td class="cell100 column2">{{ user.email }}</td>
+                                    <td class="cell300 column3">
+										{% for role in user.userrole.role.all %}
+											{{ role.name }}
+										{% endfor %}
+									</td>
+								</tr>		
+							</tbody>
+						</table>
+					</div>
+					
+					
+				{% endfor %}
+				{% else %}
+					<h3>There is not Assigned Personnel</h3>
+				{% endif %}

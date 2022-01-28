@@ -1,0 +1,21 @@
+				
+				{% if file_list %}
+				{% for file in file_list %}
+					<div class="table100-body js-pscroll">
+						<table>
+							<tbody>
+								<tr class="row100 body">
+									<td class="cell100 column1">{{ file.attachment.url }}</td>
+									<td class="cell100 column2">{{ file.author.username }}</td>
+                                    <td class="cell300 column3">{{ file.description }}</td>
+									<td class="cell300 column4">{{ file.created }}</td>
+								</tr>		
+							</tbody>
+						</table>
+					</div>
+					
+					
+				{% endfor %}
+				{% else %}
+					<h3>There are no files. Please create a new one.</h3>
+				{% endif %}
