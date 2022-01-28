@@ -98,6 +98,9 @@ class TicketHistory(models.Model):
     new_developer = models.ForeignKey(User, on_delete=models.RESTRICT)
     created = models.DateField(auto_now_add=True)
 
+    class Meta:
+        ordering = ["-created"]
+
     def __str__(self):
         return self.ticket.title
 

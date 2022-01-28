@@ -178,6 +178,7 @@ def ticketsDetailView(request, ticket_id):
 
     comment_list = Comment.objects.filter(ticket=ticket)
     file_list = File.objects.filter(ticket=ticket)
+    ticket_history_list = TicketHistory.objects.filter(ticket=ticket)
 
     context = {
         "ticket": ticket,
@@ -185,6 +186,7 @@ def ticketsDetailView(request, ticket_id):
         "comment_list": comment_list,
         "file_form": file_form,
         "file_list": file_list,
+        "ticket_history_list": ticket_history_list,
     }
 
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
@@ -217,6 +219,7 @@ def ticketUpdateView(request, ticket_id):
         form = CreateTicketForm(request.POST or None, instance = ticket)
         if form.is_valid():
             form.save()
+
             #if the assigned developer was changed, then create a history ticket about it
             new_developer = form.cleaned_data["assigned_developer"]
             if old_developer != new_developer:

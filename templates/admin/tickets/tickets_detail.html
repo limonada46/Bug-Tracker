@@ -73,6 +73,28 @@
     {% include 'admin/tickets/tickets_detail_files_logic.html' %}
 </div>
 
+<table>
+    <thead>
+        <tr>
+            <th>Property</th>
+            <th>Old Developer</th>
+            <th>New Developer</th>
+            <th>Created</th>
+        </tr>
+        
+    </thead>
+    <tbody>
+    {% for ticket_history in ticket_history_list %}
+        <tr>
+            <td>Ticket assigned to: </td>
+            <td>{{ ticket_history.old_developer }}</td>
+            <td>{{ ticket_history.new_developer }}</td>
+            <td>{{ ticket_history.created }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
 
 <script src="{% static 'CRUD_tables/js/tickets/ticket_detail.js' %}"></script>
 </body>
