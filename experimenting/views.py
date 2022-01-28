@@ -269,3 +269,6 @@ def createFileView(request):
     return render(request, "admin/tickets/test.html", {"file_form":form})
 
 #after completing all the views, please try to use the generic views of django; like you did with the forms and views for auth
+
+def createfile(request):
+    pass
