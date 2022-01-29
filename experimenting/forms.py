@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from .models import Project, Ticket, Comment, File
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordResetForm, SetPasswordForm
 
@@ -99,3 +99,12 @@ class CreateFileForm(ModelForm):
         model = File
         fields = ["author", "ticket", "description", "attachment"]
 
+class CreateUserRoleForm(forms.Form):
+    users = forms.ModelMultipleChoiceField(queryset=User.objects.all())
+    role = forms.ModelChoiceField(queryset=Group.objects.all())
+
+class EditUserRoleForm(ModelForm):
+    
+    class Meta:
+        model = User
+        fields = ["groups"]

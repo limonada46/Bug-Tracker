@@ -78,20 +78,6 @@ class File(models.Model):
     def __str__(self):
         return self.attachment.url
 
-class Role(models.Model):
-    name = models.CharField(max_length=30)
-    permissions = models.ManyToManyField(Permission)
-
-    def __str__(self):
-        return self.name
-
-class UserRole(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.ManyToManyField(Role)
-
-    def __str__(self):
-        return self.role.name
-
 class TicketHistory(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     old_developer = models.ForeignKey(User, on_delete=models.RESTRICT, related_name="old_dev")

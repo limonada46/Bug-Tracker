@@ -41,7 +41,7 @@
         </tr>
     </tbody>
 </table>
-
+{% if perms.experimenting.add_comment %}
 <form id="comment_form" action="">
     {{ comment_form.author.as_hidden }}
     {{ comment_form.ticket.as_hidden }}
@@ -50,11 +50,13 @@
 
 </form>
 <button onclick="createNewComment()">ADD</button>
+{% endif %}
 
 <div id="replaceable-comment-table">
     {% include 'admin/tickets/tickets_detail_comments_logic.html' %}
 </div>
 
+{% if perms.experimenting.add_file %}
 <form id="file_form" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ file_form.author }}
@@ -67,7 +69,7 @@
 
 </form>
 <button type="submit" onclick="createNewFile()">ADD</button>
-
+{% endif %}
 
 <div id="replaceable-file-table">
     {% include 'admin/tickets/tickets_detail_files_logic.html' %}

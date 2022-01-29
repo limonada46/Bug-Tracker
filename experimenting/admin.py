@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project, Ticket, Role, Comment, File, UserRole, TicketHistory
+from .models import Project, Ticket, Comment, File, TicketHistory
 
 class TicketAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
@@ -21,8 +21,6 @@ class FileAdmin(admin.ModelAdmin):
 
 admin.site.register(Project)
 admin.site.register(Ticket, TicketAdmin)
-admin.site.register(Role)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(File, FileAdmin)
-admin.site.register(UserRole)
 admin.site.register(TicketHistory)

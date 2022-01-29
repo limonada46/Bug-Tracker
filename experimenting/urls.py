@@ -44,5 +44,7 @@ urlpatterns = [
     path("my-tickets/create/", views.ticketsCreateView, name="tickets_create"),
     path("my-tickets/<int:ticket_id>/edit", views.ticketUpdateView, name="tickets_update"),
     path("my-tickets/<int:pk>/delete", views.TicketsDeleteView.as_view(), name="tickets_delete"),
-    path("test/", views.createFileView, name="test"),
+
+    path("role/", views.roleAssignmentView, name="role_assignment"),
+    path("role/<int:user_id>/edit", views.roleAssignmentUpdateView, name="role_assignment_update"),
 ]

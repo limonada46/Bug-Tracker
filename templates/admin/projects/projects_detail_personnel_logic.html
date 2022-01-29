@@ -8,7 +8,7 @@
 									<td class="cell100 column1">{{ user.username }}</td>
 									<td class="cell100 column2">{{ user.email }}</td>
                                     <td class="cell300 column3">
-										{% for role in user.userrole.role.all %}
+										{% for role in user.userrole.roles.all %}
 											{{ role.name }}
 										{% endfor %}
 									</td>

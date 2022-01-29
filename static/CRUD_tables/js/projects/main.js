@@ -47,7 +47,6 @@ function searchProject(){
             table.textContent="";
             table.appendChild(error);
             
-            console.clear(); // WEEK 4 
         }else{
             return response.json();
         }
