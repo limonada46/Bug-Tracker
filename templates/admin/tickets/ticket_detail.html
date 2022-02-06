@@ -1,0 +1,227 @@
+{% extends 'admin/admin-base.html' %}
+
+{% block title %} Ticket Details {% endblock %}
+
+{% block content %}
+
+<main id="main" class="main">
+
+    <div class="float-end">
+      <a class="btn btn-warning" href="{% url 'ticket_update' ticket.id %}">Edit</a>
+    </div>
+  
+      <div class="pagetitle">
+        <h1>Details for ticket: {{ ticket.title }}</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'bugtracker_dashboard' %}">Home</a></li>
+            <li class="breadcrumb-item">Tables</li>
+            <li class="breadcrumb-item"><a href="{% url 'ticket_list' %}">My tickets</a></li>
+            <li class="breadcrumb-item active">{{ ticket.title }}</li>
+          </ol>
+        </nav>
+      </div><!-- End Page Title -->
+  
+      <section class="section">
+        <div class="row">
+          <div class="col-lg-6">
+  
+            <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Details</h5>
+    
+                  <!-- Default Table -->
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <th scope="row">Ticket Title</th>
+                        <th scope="row">Ticket Description</th>
+                      </tr>
+                      <tr>
+                        <td>{{ ticket.title }}</td>
+                        <td>{{ ticket.description }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Assigned Developer</th>
+                        <th scope="row">Submitter</th>
+                      </tr>
+                      <tr>
+                        <td>{{ ticket.assigned_developer.first_name }}</td>
+                        <td>{{ ticket.submitter.first_name }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Project</th>
+                        <th scope="row">Ticket Priority</th>
+                      </tr>
+                      <tr>
+                        <td>{{ ticket.project }}</td>
+                        <td>{{ ticket.get_priority_level_display}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Ticket Status</th>
+                        <th scope="row">Ticket Type</th>
+                      </tr>
+                      <tr>
+                        <td>{{ ticket.get_status_display }}</td>
+                        <td>{{ ticket.get_ticket_type_display }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Created</th>
+                        <th scope="row">Updated</th>
+                      </tr>
+                      <tr>
+                        <td>{{ ticket.created }}</td>
+                        <td>{{ ticket.updated }}</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                  <!-- End Default Table Example -->
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Ticket History</h5>
+                  <p>All History Information for this Ticket</p>
+    
+                  <!-- Table with stripped rows -->
+                  <table class="table datatable">
+                    <thead>
+                      <tr>
+                        <th scope="col">Property</th>
+                        <th scope="col">Old Developer</th>
+                        <th scope="col">New Developer</th>
+                        <th scope="col">Created</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% include 'admin/tickets/ticket_detail_history_logic.html' %}
+                    </tbody>
+                  </table>
+                  <!-- End Table with stripped rows -->
+    
+    
+                </div>
+              </div>
+  
+          </div>
+
+        <div class="col-lg-6">
+          {% if perms.bugtracker.add_comment %}
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Add a comment?</h5>
+    
+                <!-- Vertical Form -->
+                <form class="row g-3" method="POST" novalidate>
+                  {% csrf_token %}
+                  <div class="col-12">
+                    {{ comment_form.author.as_hidden }}
+                    {{ comment_form.ticket.as_hidden }}
+                    {{ comment_form.description }}
+                    {{ comment_form.description.errors }}
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary" name="comment_submit">Submit</button>
+                  </div>
+                </form><!-- Vertical Form -->
+    
+              </div>
+            </div>
+            {% endif %}
+    
+
+            <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Ticket Comments</h5>
+                  <p>All comments for this Ticket</p>
+    
+                  <!-- Table with stripped rows -->
+                  <table class="table datatable">
+                    <thead>
+                      <tr>
+                        <th scope="col">Commenter</th>
+                        <th scope="col">Message</th>
+                        <th scope="col">Created</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% include 'admin/tickets/ticket_detail_comments_logic.html' %}
+                    </tbody>
+                  </table>
+                  <!-- End Table with stripped rows -->
+    
+    
+                </div>
+              </div>
+
+
+
+            
+
+
+        </div>
+      <div class="col-lg-12">
+        {% if perms.bugtracker.add_file %}
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Add an attachment?</h5>
+
+            <!-- Vertical Form -->
+            <form class="row g-3" method="POST" enctype="multipart/form-data" novalidate>
+              {% csrf_token %}
+              <div class="col-12">
+                {{ file_form.author.as_hidden }}
+                {{ file_form.ticket.as_hidden }}
+                <label for="id_attachment" class="form-label">Attachment</label>
+                {{ file_form.attachment }}
+                {{ file_form.attachment.errors }}
+                <label for="id_description" class="form-label">Notes</label>
+                {{ file_form.description }}
+                {{ file_form.description.errors }}
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary" name="file_submit">Submit</button>
+              </div>
+            </form><!-- Vertical Form -->
+
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Ticket Attachments</h5>
+              <p>All files attached for this Ticket</p>
+
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">File</th>
+                    <th scope="col">Uploader</th>
+                    <th scope="col">Notes</th>
+                    <th scope="col">Created</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% include 'admin/tickets/ticket_detail_files_logic.html' %}
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+
+            </div>
+          </div>
+        </div>
+
+        </div>
+      </section>
+  
+    </main><!-- End #main -->
+
+{% endblock %}

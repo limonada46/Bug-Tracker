@@ -1,0 +1,16 @@
+				
+				{% if ticket_list %}
+				{% for ticket in ticket_list %}
+								<tr>
+									<td>{{ ticket.title }}</td>
+                                    <td>{{ ticket.assigned_developer.first_name}}</td>
+                                    <td>{{ ticket.get_status_display }}</td>
+                                    <td>{{ ticket.created }}</td>
+									<td>
+										<a href="{% url 'ticket_detail' ticket.id %}">Details</a>
+									</td>
+                                    
+
+								</tr>
+				{% endfor %}
+				{% endif %}

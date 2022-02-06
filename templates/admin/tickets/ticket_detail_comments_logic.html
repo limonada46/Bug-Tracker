@@ -1,0 +1,12 @@
+				
+				{% if comment_list %}
+				{% for comment in comment_list %}
+								<tr>
+									<td>{{ comment.author.first_name }}</td>
+									<td>{{ comment.description }}</td>
+                                    <td>{{ comment.created }}</td>
+								</tr>		
+					
+					
+				{% endfor %}
+				{% endif %}

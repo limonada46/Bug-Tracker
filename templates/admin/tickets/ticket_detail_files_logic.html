@@ -1,0 +1,13 @@
+				
+				{% if file_list %}
+				{% for file in file_list %}
+
+					<tr>
+						<td><a href="{{ file.attachment.url }}">{{ file.attachment.url }}</a></td>
+						<td>{{ file.author.first_name }}</td>
+                        <td>{{ file.description }}</td>
+						<td>{{ file.created }}</td>
+					</tr>		
+
+				{% endfor %}
+				{% endif %}

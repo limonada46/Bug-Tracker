@@ -1,0 +1,79 @@
+{% extends 'admin/admin-base.html' %}
+
+{% block title %} Manage Users {% endblock %}
+
+{% block content %}
+
+<main id="main" class="main">
+  
+    {% if perms.bugtracker.delete_project %}
+    <div class="float-end">
+        <form method="POST" action="{% url 'project_delete' project_id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">
+                Delete this Project
+            </button>
+        </form>
+        
+    </div><!-- End Button -->
+    {% endif %}
+
+  <div class="pagetitle">
+    <h1>Manage Project Users</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'bugtracker_dashboard' %}">Home</a></li>
+        <li class="breadcrumb-item">Tables</li>
+        <li class="breadcrumb-item"><a href="{% url 'project_list' %}">My Projects</a></li>
+        <li class="breadcrumb-item active">Manage Project Users</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+  <section class="section">
+    <div class="row">
+
+      <div class="col-lg-6">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Manage Project Users</h5>
+
+            <!-- Vertical Form -->
+            <form class="row g-3" method="POST" novalidate>
+              {% csrf_token %}
+              <div class="col-12">
+                <label for="id_name" class="form-label">Project Name</label>
+                {{ form.name }}
+                {{ form.name.errors }}
+              </div>
+              <div class="col-12">
+                <label for="id_description" class="form-label">Description</label>
+                {{ form.description }}
+                {{ form.description.errors }}
+              </div>
+              <div class="col-12">
+                <label for="id_assigned_personnel" class="form-label">Assigned Personnel</label>
+                {{ form.assigned_personnel }}
+                {{ form.assigned_personnel.errors }}
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+              </div>
+            </form><!-- Vertical Form -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+</main><!-- End #main -->
+
+
+    
+
+
+{% endblock %}

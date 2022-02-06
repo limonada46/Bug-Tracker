@@ -1,0 +1,67 @@
+{% extends 'admin/admin-base.html' %}
+
+{% block title %} My Tickets {% endblock %}
+
+{% block content %}
+	<main id="main" class="main">
+
+		<div class="float-end">
+			<a href="{% url 'ticket_create' %}" class="btn btn-primary">
+				Create New Ticket
+			</a>
+		</div><!-- End Create Button -->
+		
+
+		<div class="pagetitle">
+		  <h1>Tickets</h1>
+			
+		  <nav>
+			<ol class="breadcrumb">
+			  <li class="breadcrumb-item"><a href="{% url 'bugtracker_dashboard' %}">Home</a></li>
+			  <li class="breadcrumb-item">Tables</li>
+			  <li class="breadcrumb-item active">My Tickets</li>
+			</ol>
+		  </nav>
+		</div><!-- End Page Title -->
+
+
+	
+		<section class="section">
+		  <div class="row">
+			<div class="col-lg-12">
+	
+			  <div class="card">
+				<div class="card-body">
+				  <h5 class="card-title">Your Tickets</h5>
+				  <p>All the tickets you have in your database</p>
+	
+				  <!-- Table with stripped rows -->
+				  <table class="table datatable">
+					<thead>
+					  <tr>
+						<th scope="col">ID</th>
+						<th scope="col">Title</th>
+						<th scope="col">Project Name</th>
+						<th scope="col">Developer Assigned</th>
+						<th scope="col">Ticket Priority</th>
+						<th scope="col">Ticket Status</th>
+						<th scope="col">Ticket Type</th>
+						<th scope="col">Created</th>
+						<th scope="col"></th>
+					  </tr>
+					</thead>
+					<tbody>
+						{% include 'admin/tickets/ticket_list_logic.html' %}
+					</tbody>
+				  </table>
+				  <!-- End Table with stripped rows -->
+	
+				</div>
+			  </div>
+	
+			</div>
+		  </div>
+		</section>
+	
+	  </main><!-- End #main -->
+{% endblock %}

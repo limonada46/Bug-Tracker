@@ -1,0 +1,14 @@
+				
+				{% if assigned_personnel %}
+				{% for user in assigned_personnel %}
+								<tr>
+									<td>{{ user.first_name }}</td>
+									<td>{{ user.email }}</td>
+                                    <td>
+										{% for role in user.groups.all %}
+											{{ role.name }}
+										{% endfor %}
+									</td>
+								</tr>		
+				{% endfor %}
+				{% endif %}

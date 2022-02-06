@@ -1,0 +1,23 @@
+				
+				{% if project_list %}
+				{% for project in project_list %}
+					<tr>
+					  <th scope="row">{{ project.id }}</th>
+					  <td>{{ project.name }}</td>
+					  <td>{{ project.description }}</td>
+					  <td>
+						<a href="{% url 'project_detail' project.id %}">Details</a>
+						{% if perms.bugtracker.change_project %}
+						 / 
+						<a href="{% url 'project_update' project.id %}">Manage Personnel</a>
+						{% endif %}
+					  </td>
+					</tr>					
+				{% endfor %}
+				{% endif %}
+				
+
+				
+
+
+				

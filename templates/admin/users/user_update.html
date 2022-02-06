@@ -1,0 +1,105 @@
+{% extends 'admin/admin-base.html' %}
+
+{% block title %} Edit User {% endblock %}
+
+{% block content %}
+
+<main id="main" class="main">
+  
+    {% if perms.bugtracker.delete_project %}
+    <div class="float-end">
+        <form method="POST" action="{% url 'user_delete' user.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">
+                Delete this User
+            </button>
+        </form>
+        
+    </div><!-- End Button -->
+    {% endif %}
+
+  <div class="pagetitle">
+    <h1>Edit User</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'bugtracker_dashboard' %}">Home</a></li>
+        <li class="breadcrumb-item">Admin Tables</li>
+        <li class="breadcrumb-item"><a href="{% url 'user_list' %}">Manage Users</a></li>
+        <li class="breadcrumb-item active">Edit User</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+  <section class="section">
+    <div class="row">
+
+      <div class="col-lg-6">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Edit User Form</h5>
+
+            <!-- Vertical Form -->
+            <form class="row g-3" method="POST" novalidate>
+              {% csrf_token %}
+              <div class="col-12">
+                <label for="id_username" class="form-label">Username</label>
+                {{ form.username }}
+                {{ form.username.errors }}
+              </div>
+              <div class="col-12">
+                <label for="id_first_name" class="form-label">Name</label>
+                {{ form.first_name }}
+                {{ form.first_name.errors }}
+              </div>
+              <div class="col-12">
+                <label for="id_email" class="form-label">Email</label>
+                {{ form.email }}
+                {{ form.email.errors }}
+              </div>
+              <div class="col-12">
+                <label for="id_groups" class="form-label">Roles</label>
+                {{ form.groups }}
+                {{ form.groups.errors }}
+              </div>
+              <div class="form-check">
+                {{ form.is_active }}
+                <label class="form-check-label" for="id_is_active">
+                  Is Active
+                </label>
+                {{ form.is_active.errors }}
+              </div>
+              <div class="form-check">
+                {{ form.is_superuser }}
+                <label class="form-check-label" for="id_is_superuser">
+                  Is Superuser
+                </label>
+                {{ form.is_superuser.errors }}
+              </div>
+              <div class="form-check">
+                {{ form.is_staff }}
+                <label class="form-check-label" for="id_is_staff">
+                  Is Staff
+                </label>
+                {{ form.is_staff.errors}}
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+              </div>
+            </form><!-- Vertical Form -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+</main><!-- End #main -->
+
+
+    
+
+
+{% endblock %}

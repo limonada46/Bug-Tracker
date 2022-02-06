@@ -1,0 +1,21 @@
+{% extends 'admin/admin-base.html' %}
+
+{% block title %} Thanks {% endblock %}
+
+{% block content %}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>The Message has been sent succesfully. Thanks!</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'bugtracker_dashboard' %}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'contact' %}">Contact</a></li>
+          <li class="breadcrumb-item active">Thanks</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+  </main><!-- End #main -->
+{% endblock %}

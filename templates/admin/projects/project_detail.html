@@ -1,0 +1,116 @@
+{% extends 'admin/admin-base.html' %}
+
+{% block title %} Project Details {% endblock %}
+
+{% block content %}
+    
+<main id="main" class="main">
+  {% if perms.bugtracker.change_project %}
+  <div class="float-end">
+    <a class="btn btn-warning" href="{% url 'project_update' project.id %}">Manage Users</a>
+  </div>
+  {% endif %}
+
+    <div class="pagetitle">
+      <h1>Details for project: {{ project.name }}</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Tables</li>
+          <li class="breadcrumb-item"><a href="{% url 'project_list' %}">My Projects</a></li>
+          <li class="breadcrumb-item active">{{ project.name }}</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-5">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Project Name</h5>
+              <p>{{ project.name }}</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-7">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Project Description</h5>
+              <p>{{ project.description }}</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Assigned Personnel</h5>
+              <p>Current Users on this Project</p>
+
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Role</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% include 'admin/projects/project_detail_personnel_logic.html' %}
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Tickets for this Project</h5>
+              <p>Condensed Ticket Details</p>
+
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Developer Assigned</th>
+                    <th scope="col">Ticket Status</th>
+                    <th scope="col">Created</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% include 'admin/projects/project_detail_tickets_logic.html' %}
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+{% endblock %}

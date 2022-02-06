@@ -1,0 +1,15 @@
+				
+				{% if personnel %}
+				{% for user in personnel %}
+								<tr>
+									<td>{{ user.first_name }}</td>
+									<td>{{ user.email }}</td>
+                                    <td>
+										{% for role in user.groups.all %}
+											{{ role.name }}
+										{% endfor %}
+									</td>
+                  <td><a href="{% url 'role_assignment_update' user.id %}">Modify Roles</a></td>
+								</tr>		
+				{% endfor %}
+				{% endif %}

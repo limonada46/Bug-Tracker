@@ -1,0 +1,86 @@
+{% extends 'admin/admin-base.html' %}
+
+{% block title %} Create New Ticket {% endblock %}
+
+{% block content %}
+
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Create New Ticket</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'bugtracker_dashboard' %}">Home</a></li>
+        <li class="breadcrumb-item">Tables</li>
+        <li class="breadcrumb-item"><a href="{% url 'ticket_list' %}">My Tickets</a></li>
+        <li class="breadcrumb-item active">Create New Ticket</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+  <section class="section">
+    <div class="row">
+
+      <div class="col-lg-6">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Create Ticket Form</h5>
+
+            <!-- Vertical Form -->
+            <form class="row g-3" method="POST" novalidate>
+              {% csrf_token %}
+              {{form.submitter.as_hidden}}
+              {{form.modified_by.as_hidden}}
+              <div class="col-12">
+                <label for="id_project" class="form-label">Project</label>
+                {{ form.project }}
+                {{ form.project.errors }}
+              </div>
+              <div class="col-12">
+                <label for="id_title" class="form-label">Ticket Title</label>
+                {{ form.title }}
+                {{ form.title.errors }}
+              </div>
+              <div class="col-12">
+                <label for="id_description" class="form-label">Description</label>
+                {{ form.description }}
+                {{ form.description.errors }}
+              </div>
+              <div class="col-12">
+                <label for="id_assigned_developer" class="form-label">Assigned Developer</label>
+                {{ form.assigned_developer }}
+                {{ form.assigned_developer.errors }}
+              </div>
+              <div class="col-12">
+                <label for="id_priority_level" class="form-label">Priority Level</label>
+                {{ form.priority_level }}
+                {{ form.priority_level.errors }}
+              </div>
+              <div class="col-12">
+                <label for="id_status" class="form-label">Status</label>
+                {{ form.status }}
+                {{ form.status.errors }}
+              </div>
+              <div class="col-12">
+                <label for="id_ticket_type" class="form-label">Ticket Type</label>
+                {{ form.ticket_type }}
+                {{ form.ticket_type.errors }}
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+              </div>
+            </form><!-- Vertical Form -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main><!-- End #main -->
+    
+
+
+{% endblock %}

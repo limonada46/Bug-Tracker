@@ -1,16 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="Enviar">
-    </form>
-</body>
-</html>
+{% extends 'admin/admin-base.html' %}
+
+{% block title %} Modify Roles {% endblock %}
+
+{% block content %}
+    
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Modify Roles</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Admin Tables</li>
+          <li class="breadcrumb-item"><a href="{% url 'role_assignment' %}">Manage Role Assignment</a></li>
+          <li class="breadcrumb-item active">Modify Roles</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-6">
+
+            <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Modify Roles Form</h5>
+      
+                  <!-- Vertical Form -->
+                  <form class="row g-3" method="POST" novalidate>
+                    {% csrf_token %}
+                    <div class="col-12">
+                      <label for="id_users" class="form-label">User:</label>
+                      {{ user.first_name }}
+                    </div>
+                    <div class="col-12">
+                      <label for="id_role" class="form-label">Roles</label>
+                      {{ form.groups }}
+                      {{ form.groups.errors }}
+                    </div>
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                      <button type="reset" class="btn btn-secondary">Reset</button>
+                    </div>
+                  </form><!-- Vertical Form -->
+      
+                </div>
+              </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+{% endblock %}

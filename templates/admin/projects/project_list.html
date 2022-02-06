@@ -1,0 +1,63 @@
+{% extends 'admin/admin-base.html' %}
+
+{% block title %} My Projects {% endblock %}
+
+{% block content %}
+	<main id="main" class="main">
+		{% if perms.bugtracker.add_project %}
+		<div class="float-end">
+			<a href="{% url 'project_create' %}" class="btn btn-primary">
+				Create New Project
+			</a>
+		</div><!-- End Create Button -->
+		{% endif %}
+		
+
+		<div class="pagetitle">
+		  <h1>Projects</h1>
+			
+		  <nav>
+			<ol class="breadcrumb">
+			  <li class="breadcrumb-item"><a href="{% url 'bugtracker_dashboard' %}">Home</a></li>
+			  <li class="breadcrumb-item">Tables</li>
+			  <li class="breadcrumb-item active">My Projects</li>
+			</ol>
+		  </nav>
+		</div><!-- End Page Title -->
+
+
+	
+		<section class="section">
+		  <div class="row">
+			<div class="col-lg-12">
+	
+			  <div class="card">
+				<div class="card-body">
+				  <h5 class="card-title">Your Projects</h5>
+				  <p>All the projects you have in your database</p>
+	
+				  <!-- Table with stripped rows -->
+				  <table class="table datatable">
+					<thead>
+					  <tr>
+						<th scope="col">ID</th>
+						<th scope="col">Name</th>
+						<th scope="col">Description</th>
+						<th scope="col"></th>
+					  </tr>
+					</thead>
+					<tbody>
+						{% include 'admin/projects/project_list_logic.html' %}
+					</tbody>
+				  </table>
+				  <!-- End Table with stripped rows -->
+	
+				</div>
+			  </div>
+	
+			</div>
+		  </div>
+		</section>
+	
+	</main><!-- End #main -->
+{% endblock %}

@@ -1,0 +1,10 @@
+{% if ticket_history_list %}
+    {% for ticket_history in ticket_history_list %}
+        <tr>
+            <td>Ticket assigned to: </td>
+            <td>{{ ticket_history.old_developer.first_name }}</td>
+            <td>{{ ticket_history.new_developer.first_name }}</td>
+            <td>{{ ticket_history.created }}</td>
+        </tr>
+    {% endfor %}
+{% endif %}
