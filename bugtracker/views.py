@@ -371,13 +371,3 @@ def contactView(request):
 def contactThanksView(request):
     return render(request, "admin/contact_thanks.html")
 
-#activar las urls // en produccion hay que hacer otra cosa para mostrar los archivos
-#4-luego rellenar la base de datos con datos de prueba
-#4.5 virtual environment 
-#5.-Subir la pagina a algun dominio
-
-
-#6.- una funcionalidad muy importante para este tipo de projectos es ask for review...
-#7 edit comments and files / delete comments and files
-#8 an user should not delete other comment of other users
-#9 use email instead of username to login 
