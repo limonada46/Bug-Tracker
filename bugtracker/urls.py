@@ -20,7 +20,6 @@ from django.contrib.auth import views as auth_views
 from .forms import LoginForm, PasswordResettingForm, PasswordRessetingConfirmForm
 from django.conf import settings
 from django.conf.urls.static import static
-from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -57,9 +56,6 @@ urlpatterns = [
     path("about/", views.aboutView, name="about"),
     path("contact/", views.contactView, name="contact"),
     path("contact/thanks", views.contactThanksView, name="contact_thanks"),
-
-    url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
-    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
