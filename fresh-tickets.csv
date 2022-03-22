@@ -1,0 +1,3 @@
+id,submitter,modified_by,assigned_developer,project,title,description,priority_level,status,ticket_type
+1,Close Ticket Functionality,The developer assigned to a specific ticket should be able to close that ticket instead of updating the whole ticket,Low,Open,Feature Requests
+2,Add Deadlines To Tickets,Add a date field to the ticket object to assign deadlines for that specific ticket,Low,Open,Feature Requests

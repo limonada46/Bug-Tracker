@@ -43,7 +43,7 @@ class PasswordRessetingConfirmForm(SetPasswordForm):
     new_password2.widget.attrs.update({'class': 'input100', 'placeholder': 'Confirm Password'})
 
 class CreateProjectForm(ModelForm):
-    #instead of returning the object name, just return the first_name attribute of the object, in this case User
+    #instead of returning the object name, just return the first_name attribute of the object, in this case User.first_name
     class MyModelMultipleChoiceField(ModelMultipleChoiceField):
         def label_from_instance(self, obj):
             return obj.first_name
@@ -64,29 +64,31 @@ class CreateTicketForm(ModelForm):
     class DeveloperModelChoiceField(ModelChoiceField):
         def label_from_instance(self, obj):
             return obj.first_name
+
     priority_level_choices = [
-        ("N", "None"),
-        ("L", "Low"),
-        ("M", "Medium"),
-        ("H", "High"),
-        ("VH", "Very High"),
+        ("none", "None"),
+        ("low", "Low"),
+        ("medium", "Medium"),
+        ("high", "High"),
+        ("very_high", "Very High"),
     ]
 
     status_choices = [
-        ("NW", "New"),
-        ("OP", "Open"),
-        ("IP", "In Progress"),
-        ("RS", "Resolved"),
-        ("AIR", "Additional Info Required"),
+        ("new", "New"),
+        ("open", "Open"),
+        ("in_progress", "In Progress"),
+        ("resolved", "Resolved"),
+        ("additional_info_required", "Additional Info Required"),
 
     ]
 
     ticket_type_choices = [
-        ("BG", "Bugs/Errors"),
-        ("FR", "Feature Requests"),
-        ("OC", "Other Comments"),
-        ("TDR", "Training / Document Requests"),
+        ("bugs_errors", "Bugs/Errors"),
+        ("feature_requests", "Feature Requests"),
+        ("other_comments", "Other Comments"),
+        ("training_document_requests", "Training / Document Requests"),
     ]
+
     submitter = forms.ModelChoiceField(queryset=User.objects.all())
     modified_by = forms.ModelChoiceField(queryset=User.objects.all())
     assigned_developer = DeveloperModelChoiceField(queryset=User.objects.all())

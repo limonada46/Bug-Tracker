@@ -16,27 +16,27 @@ class Project(models.Model):
 class Ticket(models.Model):
 
     priority_level_choices = [
-        ("N", "None"),
-        ("L", "Low"),
-        ("M", "Medium"),
-        ("H", "High"),
-        ("VH", "Very High"),
+        ("none", "None"),
+        ("low", "Low"),
+        ("medium", "Medium"),
+        ("high", "High"),
+        ("very_high", "Very High"),
     ]
 
     status_choices = [
-        ("NW", "New"),
-        ("OP", "Open"),
-        ("IP", "In Progress"),
-        ("RS", "Resolved"),
-        ("AIR", "Additional Info Required"),
+        ("new", "New"),
+        ("open", "Open"),
+        ("in_progress", "In Progress"),
+        ("resolved", "Resolved"),
+        ("additional_info_required", "Additional Info Required"),
 
     ]
 
     ticket_type_choices = [
-        ("BG", "Bugs/Errors"),
-        ("FR", "Feature Requests"),
-        ("OC", "Other Comments"),
-        ("TDR", "Training / Document Requests"),
+        ("bugs_errors", "Bugs/Errors"),
+        ("feature_requests", "Feature Requests"),
+        ("other_comments", "Other Comments"),
+        ("training_document_requests", "Training / Document Requests"),
     ]
 
     submitter = models.ForeignKey(User, on_delete=models.RESTRICT, related_name="submitter", default=1)
@@ -45,9 +45,9 @@ class Ticket(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     description = models.TextField()
-    priority_level = models.CharField(max_length=20, choices=priority_level_choices)
-    status = models.CharField(max_length=20, choices=status_choices)
-    ticket_type = models.CharField(max_length=20, choices=ticket_type_choices)
+    priority_level = models.CharField(max_length=50, choices=priority_level_choices)
+    status = models.CharField(max_length=50, choices=status_choices)
+    ticket_type = models.CharField(max_length=50, choices=ticket_type_choices)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
 

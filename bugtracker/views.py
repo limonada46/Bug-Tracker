@@ -31,7 +31,7 @@ def forgotPasswordView(request):
 @login_required
 def adminDashboardView(request):
 
-    # Logic to get a total count for every value in priority_level and other choices fields
+    # Logic to get a total count for every value in priority_level and other choices fields to use them in Chart.js
     priority = {level[0]: 0 for level in Ticket.priority_level_choices}
     queryset = Ticket.objects.values("priority_level").annotate(priority_count=Count("priority_level"))
     for entry in queryset:
@@ -75,7 +75,7 @@ def projectDetailView(request, project_id):
     assigned_personnel = project.assigned_personnel.all()
     ticket_list = Ticket.objects.all().filter(project=project)
 
-    #if the current user is not assigned to this project:
+    #if the current user is not assigned to this project, redirect:
     if request.user not in project.assigned_personnel.all():
         #but if the current user is admin, then pass, else redirect:
         if request.user.has_perm("bugtracker.change_project"):
@@ -108,9 +108,9 @@ def projectCreateView(request):
 def projectUpdateView(request, project_id):
     project = get_object_or_404(Project, pk=project_id)
 
-    #if the current user is not assigned to this project:
+    #if the current user is not assigned to this project, redirect:
     if request.user not in project.assigned_personnel.all():
-        #but if the current user is admin, then pass, else redirect
+        #but if the current user is admin, then pass
         if request.user.has_perm("bugtracker.change_project"):
             pass
         else:
@@ -131,9 +131,9 @@ def projectUpdateView(request, project_id):
 def projectDeleteView(request, project_id):
     project = get_object_or_404(Project, pk=project_id)
 
-    #if the current user is not assigned to this project:
+    #if the current user is not assigned to this project, redirect:
     if request.user not in project.assigned_personnel.all():
-        #but if the current user is admin, then pass, else redirect
+        #but if the current user is admin, then pass
         if request.user.has_perm("bugtracker.change_project"):
             pass
         else:
@@ -231,12 +231,16 @@ def ticketUpdateView(request, ticket_id):
             pass
         else:
             return redirect(reverse("ticket_list"))
-
     old_developer = ticket.assigned_developer
+
     if request.method == "POST":
+        
+        
         form = CreateTicketForm(request.POST or None, instance = ticket)
         if form.is_valid():
             form.save()
+            #TODO: the ticket history table is not showing the assigned developer ordered by id 
+            #just ordered by date and doesnt have minutes so multiple tickets in a day are a mess 
 
             #if the assigned developer was changed, then create a history ticket about it
             new_developer = form.cleaned_data["assigned_developer"]
@@ -257,8 +261,9 @@ def ticketUpdateView(request, ticket_id):
 def ticketDeleteView(request, ticket_id):
     ticket = get_object_or_404(Ticket, pk=ticket_id)
 
+    #if the current user is not assigned to this project, redirect:
     if request.user not in ticket.project.assigned_personnel.all():
-        #but if the current user is admin, then pass, else redirect:
+        #but if the current user is admin, then pass
         if request.user.has_perm("bugtracker.change_project"):
             pass
         else:
