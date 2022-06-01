@@ -32,18 +32,26 @@ def forgotPasswordView(request):
 def adminDashboardView(request):
 
     # Logic to get a total count for every value in priority_level and other choices fields to use them in Chart.js
+    
+    if request.user.has_perm("bugtracker.change_project"):
+        #If the user is the admin or project manager, show all tickets
+        ticket_list = Ticket.objects.all()
+    else:
+        #Show the tickets from the projects that includes the current user as assigned personnel
+        ticket_list = Ticket.objects.filter(project__assigned_personnel=request.user)
+
     priority = {level[0]: 0 for level in Ticket.priority_level_choices}
-    queryset = Ticket.objects.values("priority_level").annotate(priority_count=Count("priority_level"))
+    queryset = ticket_list.values("priority_level").annotate(priority_count=Count("priority_level"))
     for entry in queryset:
         priority.update({entry["priority_level"]: entry["priority_count"]})
 
     status = {status[0]: 0 for status in Ticket.status_choices}
-    queryset = Ticket.objects.values("status").annotate(status_count=Count("status"))
+    queryset = ticket_list.values("status").annotate(status_count=Count("status"))
     for entry in queryset:
         status.update({entry["status"]: entry["status_count"]})
 
     ticket_type = {ticket_type[0]: 0 for ticket_type in Ticket.ticket_type_choices}
-    queryset = Ticket.objects.values("ticket_type").annotate(type_count=Count("ticket_type"))
+    queryset = ticket_list.values("ticket_type").annotate(type_count=Count("ticket_type"))
     for entry in queryset:
         ticket_type.update({entry["ticket_type"]: entry["type_count"]})
 
@@ -53,6 +61,7 @@ def adminDashboardView(request):
         "ticket_type": ticket_type,
 
     }
+
     return render(request, "admin/dashboard.html", context)
 
 #PROJECTS----------------------------------------------------------------------
