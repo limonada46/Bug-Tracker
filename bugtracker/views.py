@@ -38,7 +38,7 @@ def adminDashboardView(request):
         ticket_list = Ticket.objects.all()
     else:
         #Show the tickets from the projects that includes the current user as assigned personnel
-        ticket_list = Ticket.objects.filter(project__assigned_personnel=request.user)
+        ticket_list = Ticket.objects.filter(assigned_developer=request.user)
 
     priority = {level[0]: 0 for level in Ticket.priority_level_choices}
     queryset = ticket_list.values("priority_level").annotate(priority_count=Count("priority_level"))
