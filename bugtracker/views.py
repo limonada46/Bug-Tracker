@@ -163,7 +163,7 @@ def ticketListView(request):
         ticket_list = Ticket.objects.all()
     else:
         #Show the tickets from the projects that includes the current user as assigned personnel
-        ticket_list = Ticket.objects.filter(project__assigned_personnel=request.user)
+        ticket_list = Ticket.objects.filter(assigned_developer=request.user)
     
     context = {"ticket_list": ticket_list}
     return render(request, "admin/tickets/ticket_list.html", context) 
